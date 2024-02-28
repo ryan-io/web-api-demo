@@ -1,15 +1,29 @@
 ﻿using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace MockWebApi.Controllers {
 	[Route("[controller]")]
 	[ApiController]
 	public class ApiController : ControllerBase {
-		protected IActionResult ProblemApi(List<Error> errors) {
-			return ProblemApi(ref errors);
+		protected IActionResult ProblemInController(List<Error> errors) {
+			return ProblemInController(ref errors);
 		}
 
-		protected IActionResult ProblemApi(ref List<Error> errors) {
+		protected IActionResult ProblemInController(ref List<Error> errors) {
+			if (errors.All(e => e.Type == ErrorType.Validation)) {
+				// create model state dictionary
+				var dict = new ModelStateDictionary();
+
+				foreach (var error in errors)
+					dict.AddModelError(error.Code, error.Description);
+
+				return ValidationProblem();
+			}
+
+			if (errors.Any(e => e.Type == ErrorType.Unexpected))
+				return Problem();
+
 			int code = StatusCodes.Status500InternalServerError;
 
 			switch (errors[0].Type) {
@@ -32,7 +46,7 @@ namespace MockWebApi.Controllers {
 
 			return Problem(
 				statusCode: code,
-				instance: code.ToString(), 
+				instance: code.ToString(),
 				detail: errors[0].Description + " TestTest");
 		}
 	}

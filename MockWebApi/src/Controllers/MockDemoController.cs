@@ -17,7 +17,7 @@ namespace MockWebApi.Controllers {
 				request.CriticalDate);
 
 			if (createNewResult.IsError)
-				return ProblemApi(createNewResult.Errors);
+				return ProblemInController(createNewResult.Errors);
 
 			// save to db
 			var addToRepositoryResult = m_mockDemoItemService.CreateMockDemoItem(createNewResult.Value);
@@ -28,7 +28,7 @@ namespace MockWebApi.Controllers {
 					nameof(CreateMockDemoItem),
 					new { id = createNewResult.Value.Id },
 					response),
-				errors => ProblemApi(ref errors));
+				errors => ProblemInController(ref errors));
 		}
 
 		[HttpGet("get/{id:guid}")]
@@ -40,7 +40,7 @@ namespace MockWebApi.Controllers {
 
 			return getResult.Match(
 				item => Ok(MapResponse(item)),
-				errors => ProblemApi(ref errors));
+				errors => ProblemInController(ref errors));
 		}
 
 		[HttpGet("getmany")]
@@ -52,7 +52,7 @@ namespace MockWebApi.Controllers {
 
 			return getResult.Match(
 				_ => Ok(),
-				errors => ProblemApi(ref errors));
+				errors => ProblemInController(ref errors));
 		}
 
 		[HttpPut("upsert/{id:guid}")]
@@ -63,13 +63,13 @@ namespace MockWebApi.Controllers {
 				response.Name, response.Description, response.Data, response.CriticalDate);
 
 			if (cloneResult.IsError)
-				return ProblemApi(cloneResult.Errors);
+				return ProblemInController(cloneResult.Errors);
 			
 			var upsertResult = m_mockDemoItemService.Upsert(cloneResult.Value);
 
 			return upsertResult.Match(
 				item => Ok(response),
-				errors => ProblemApi(ref errors));
+				errors => ProblemInController(ref errors));
 		}
 
 		// [HttpPut("upsert")]
@@ -86,7 +86,7 @@ namespace MockWebApi.Controllers {
 
 			return deleteResult.Match(
 				item => NoContent(),
-				errors => ProblemApi(ref errors));
+				errors => ProblemInController(ref errors));
 		}
 
 		static MockDemoResponse MapResponse(MockDemoModel mockDemoModel) => new(
