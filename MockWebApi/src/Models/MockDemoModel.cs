@@ -1,5 +1,6 @@
 ﻿// MockWebApi.Library
 
+using System.Net.Sockets;
 using MockWebApi.Library;
 using ErrorOr;
 using MockWebApi.ServiceErrors;
@@ -19,18 +20,23 @@ public class MockDemoModel {
 		return Validate(id, ref name, ref description, ref data, criticalDate);
 	}
 
-	static ErrorOr<MockDemoModel> Validate(Guid id, ref string name, ref string description, ref MockDemoData 
-            data, DateTime criticalDate) {
+	static ErrorOr<MockDemoModel> Validate(Guid id, ref string name, ref string description, ref MockDemoData
+		data, DateTime criticalDate) {
+		List<Error> errors = new();
+
 		if (string.IsNullOrEmpty(name))
-			return Errors.Models.NameEmpty();
+			errors.Add(Errors.Models.NameEmpty());
 
 		if (description.Length > MAX_DESC_LENGTH)
-			return Errors.Models.DescriptionTooLong(MAX_DESC_LENGTH);
+			errors.Add(Errors.Models.DescriptionTooLong(MAX_DESC_LENGTH));
 
 		if (data.IntegerData < 0)
-			return Errors.Models.IntegerDataLessThanZero();
+			errors.Add(Errors.Models.IntegerDataLessThanZero());
 
-		return new MockDemoModel(id, name, description, data, criticalDate);;
+		if (errors.Count > 0)
+			return errors;
+
+		return new MockDemoModel(id, name, description, data, criticalDate);
 	}
 
 	MockDemoModel(Guid id, string name, string description, MockDemoData data, DateTime criticalDate) {

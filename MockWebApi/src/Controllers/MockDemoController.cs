@@ -21,7 +21,6 @@ namespace MockWebApi.Controllers {
 
 			// save to db
 			var addToRepositoryResult = m_mockDemoItemService.CreateMockDemoItem(createNewResult.Value);
-
 			var response = MapResponse(createNewResult.Value);
 
 			return addToRepositoryResult.Match(
