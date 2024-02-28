@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MockWebApi", "MockWebApi\MockWebApi.csproj", "{BEC51310-DF08-44B9-9452-436FB8DB6076}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MockWebApi.Library", "MockWebApi.Library\MockWebApi.Library.csproj", "{8DC9B8A4-770E-42EA-A87A-7EE5A12EDB73}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BEC51310-DF08-44B9-9452-436FB8DB6076}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEC51310-DF08-44B9-9452-436FB8DB6076}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEC51310-DF08-44B9-9452-436FB8DB6076}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEC51310-DF08-44B9-9452-436FB8DB6076}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DC9B8A4-770E-42EA-A87A-7EE5A12EDB73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DC9B8A4-770E-42EA-A87A-7EE5A12EDB73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DC9B8A4-770E-42EA-A87A-7EE5A12EDB73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DC9B8A4-770E-42EA-A87A-7EE5A12EDB73}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
