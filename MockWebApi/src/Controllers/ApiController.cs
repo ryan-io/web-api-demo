@@ -7,10 +7,6 @@ namespace MockWebApi.Controllers {
 	[ApiController]
 	public class ApiController : ControllerBase {
 		protected IActionResult ProblemInController(List<Error> errors) {
-			return ProblemInController(ref errors);
-		}
-
-		protected IActionResult ProblemInController(ref List<Error> errors) {
 			if (errors.All(e => e.Type == ErrorType.Validation)) {
 				// create model state dictionary
 				var dict = new ModelStateDictionary();

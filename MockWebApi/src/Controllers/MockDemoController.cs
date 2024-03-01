@@ -28,7 +28,7 @@ namespace MockWebApi.Controllers {
 					nameof(CreateMockDemoItem),
 					new { id = createNewResult.Value.Id },
 					response),
-				errors => ProblemInController(ref errors));
+				ProblemInController);
 		}
 
 		[HttpGet("get/{id:guid}")]
@@ -40,7 +40,7 @@ namespace MockWebApi.Controllers {
 
 			return getResult.Match(
 				item => Ok(MapResponse(item)),
-				errors => ProblemInController(ref errors));
+				ProblemInController);
 		}
 
 		[HttpGet("getmany")]
@@ -52,7 +52,7 @@ namespace MockWebApi.Controllers {
 
 			return getResult.Match(
 				_ => Ok(),
-				errors => ProblemInController(ref errors));
+				ProblemInController);
 		}
 
 		[HttpPut("upsert/{id:guid}")]
@@ -69,7 +69,7 @@ namespace MockWebApi.Controllers {
 
 			return upsertResult.Match(
 				item => Ok(response),
-				errors => ProblemInController(ref errors));
+				ProblemInController);
 		}
 
 		// [HttpPut("upsert")]
@@ -86,7 +86,7 @@ namespace MockWebApi.Controllers {
 
 			return deleteResult.Match(
 				item => NoContent(),
-				errors => ProblemInController(ref errors));
+				ProblemInController);
 		}
 
 		static MockDemoResponse MapResponse(MockDemoModel mockDemoModel) => new(
